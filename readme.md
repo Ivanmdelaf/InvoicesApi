@@ -142,3 +142,9 @@ app.listen(PORT, () =>{
 	console.log(`Server is running on http:localhost:${PORT}`);
 });
 ######################################
+
+## PROMT #############################################################
+Quiero realizar una nueva implementación de la capa de persistencia (Repositories). Ahora tengo la persistencia en memoria pero me gustaria tener los datos en una base de datos PostgreSQL.
+Primero, realiza el setup de las dependencias necesarias y luego hacemos la implementación especifica.
+
+*npm install pg @types/pg dotenv
