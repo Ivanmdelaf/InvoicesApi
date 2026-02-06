@@ -130,3 +130,15 @@ una forma rapida.
 
 ## Generame unos comandos Curls para que yo pueda probar manualmente mi servidor.
 *No seria necesario porque los test ya están haciendo esa función.
+
+######################################
+## 1:32 Modifica el fichero server.ts, con relación al app.ts
+## server.ts
+import { createApp } from './app'
+const app = createApp();
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () =>{
+	console.log(`Server is running on http:localhost:${PORT}`);
+});
+######################################
