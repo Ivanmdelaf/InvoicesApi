@@ -127,3 +127,6 @@ Implementa el PATCH y asegurate de que los test ahora empiezan a pasar y que no 
 Calcula el numero manteniendo en el repositorio el siguiente número disponible, de forma que cada vez que asignes
 un numero a una factura el disponible se incrementa en uno. Esto te permitira tener siempre el siguiente numero de 
 una forma rapida.
+
+## Generame unos comandos Curls para que yo pueda probar manualmente mi servidor.
+*No seria necesario porque los test ya están haciendo esa función.
