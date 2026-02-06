@@ -89,4 +89,41 @@ Quiero primero los test para luego implementar el servidor utilizando TDD.
 ## PROMT #############################################################
 No me acaban de gustar los test de los filtros: deberiamos tener insertadas varias facturas para
 ver que realmente los filtros son adecuados y quitan las facturas que no cumplen los requisitos.
+*Habra que decirle que los test son inmutables, para que esto sea estable.
 
+npm test -> veremos que todos los test fallan, la idea es que utilizando claudeCode vaya arreglando los test para que pasen.
+
+## PROMT #############################################################
+Implementa el endpoint POST /api/facturas utilizando los tests como check para comprobar el correcto funcionamiento de 
+la implementación. Implementa la persistencia de momento en memoria porque luego ya implementaremos las distintas capas.
+Puedes poner todo el código en el propio handler del endpoint.
+*Esto luego se sustituira por una bbdd.
+
+## PROMT #############################################################
+Implementa la interface de Facturas en otro fichero para así poder reutilizarlo,  por lo demás Ok.
+
+## PROMT #############################################################
+Solamente queria que hicieras el POST, por ahora termina aquí.
+
+#Capa de transporte
+#Capa de dominio
+#Capa de persistencia o Capa de datos
+
+## PROMT #############################################################
+Utilizando estos tres test, para asegurarte de que son correctos, implementa un refactor para cambiar el código a 3 capas:
+*Transporte (Todo lo que tiene que ver con express).
+*Dominio (Todo lo que tiene que ver con reglas de negocio).
+*Persistencia (Todo lo que tiene que ver con guardar las facturas y base de datos)
+Quiero que la capa de persistencia útilice el concepto de Repository y la capa de dominio que se llame Use Case.
+
+## PROMT #############################################################
+Implementa GET /api/facturas utilizando la misma estructura que ya has implementado en el Post asegurandote de 
+que los test GET /api/facturas pasan. Limitate a implementar lo necesario para el GET /api/facturas, no hagas más.
+
+## PROMT #############################################################
+Implementa el PATCH y asegurate de que los test ahora empiezan a pasar y que no se ropen test anteriores.
+
+## PROMT ############################################################# 1:27:40
+Calcula el numero manteniendo en el repositorio el siguiente número disponible, de forma que cada vez que asignes
+un numero a una factura el disponible se incrementa en uno. Esto te permitira tener siempre el siguiente numero de 
+una forma rapida.
