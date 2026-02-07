@@ -5,24 +5,24 @@
 4. Instalar TypeScript -> npm i typescript --save-d
 
 ## PROMT #############################################################
--Scope.
--Requisitos funcionales.
+- Scope.
+- Requisitos funcionales.
 - Quiero generar una api REST para gestionar facturas. Tengo estos casos de uso:
-1- Quiero poder guardar una factura con el cif del cliente y el importe (base + iva)
-2- Quiero que cada factura tenga una numeración correlativa con un prefijo (ej. BT001, BT002..)
-3- Quiero que las facturas tengan 2 estados: borrador y definitivo. Solamente puedo eliminar facturas borrador, 
+1. Quiero poder guardar una factura con el cif del cliente y el importe (base + iva)
+2. Quiero que cada factura tenga una numeración correlativa con un prefijo (ej. BT001, BT002..)
+3. Quiero que las facturas tengan 2 estados: borrador y definitivo. Solamente puedo eliminar facturas borrador, 
 	si estan en status definitivo ya no se pueden eliminar y en ese momento se le asignara el numero correlativo siguiente.
 
--Quiero que me crees un documento de diseño en la carpeta docs/ en el que me definas de forma concisa las 
+- Quiero que me crees un documento de diseño en la carpeta docs/ en el que me definas de forma concisa las 
 necesidades y propongas algunos endpoints que pueden ser necesarios. Limitate a resover las necesidades descritas.
 
 
 ## HTTP Protocolo de transferencia en el mundo Web, para pasar datos entre sistemas.
--Get  -> 
--Post -> Enviar información o recursos.
--Put  -> Remplazar
--Delete -> Eliminar
--Path -> Modificaciones parciales.
+- Get  -> 
+- Post -> Enviar información o recursos.
+- Put  -> Remplazar
+- Delete -> Eliminar
+- Path -> Modificaciones parciales.
 * Las peticiones Get con cacheables.
 
 ## 201 Respuesta Creada.
@@ -89,7 +89,7 @@ Quiero primero los test para luego implementar el servidor utilizando TDD.
 ## PROMT #############################################################
 No me acaban de gustar los test de los filtros: deberiamos tener insertadas varias facturas para
 ver que realmente los filtros son adecuados y quitan las facturas que no cumplen los requisitos.
-*Habra que decirle que los test son inmutables, para que esto sea estable.
+* Habra que decirle que los test son inmutables, para que esto sea estable.
 
 npm test -> veremos que todos los test fallan, la idea es que utilizando claudeCode vaya arreglando los test para que pasen.
 
@@ -97,7 +97,7 @@ npm test -> veremos que todos los test fallan, la idea es que utilizando claudeC
 Implementa el endpoint POST /api/facturas utilizando los tests como check para comprobar el correcto funcionamiento de 
 la implementación. Implementa la persistencia de momento en memoria porque luego ya implementaremos las distintas capas.
 Puedes poner todo el código en el propio handler del endpoint.
-*Esto luego se sustituira por una bbdd.
+* Esto luego se sustituira por una bbdd.
 
 ## PROMT #############################################################
 Implementa la interface de Facturas en otro fichero para así poder reutilizarlo,  por lo demás Ok.
@@ -105,20 +105,19 @@ Implementa la interface de Facturas en otro fichero para así poder reutilizarlo
 ## PROMT #############################################################
 Solamente queria que hicieras el POST, por ahora termina aquí.
 
-#Capa de transporte
-#Capa de dominio
-#Capa de persistencia o Capa de datos
+* Capa de transporte
+* Capa de dominio
+* Capa de persistencia o Capa de datos
 
 ## PROMT #############################################################
 Utilizando estos tres test, para asegurarte de que son correctos, implementa un refactor para cambiar el código a 3 capas:
-*Transporte (Todo lo que tiene que ver con express).
-*Dominio (Todo lo que tiene que ver con reglas de negocio).
-*Persistencia (Todo lo que tiene que ver con guardar las facturas y base de datos)
+* Transporte (Todo lo que tiene que ver con express).
+* Dominio (Todo lo que tiene que ver con reglas de negocio).
+* Persistencia (Todo lo que tiene que ver con guardar las facturas y base de datos).
 Quiero que la capa de persistencia útilice el concepto de Repository y la capa de dominio que se llame Use Case.
 
 ## PROMT #############################################################
-Implementa GET /api/facturas utilizando la misma estructura que ya has implementado en el Post asegurandote de 
-que los test GET /api/facturas pasan. Limitate a implementar lo necesario para el GET /api/facturas, no hagas más.
+Implementa GET /api/facturas utilizando la misma estructura que ya has implementado en el Post asegurandote de que los test GET /api/facturas pasan. Limitate a implementar lo necesario para el GET /api/facturas, no hagas más.
 
 ## PROMT #############################################################
 Implementa el PATCH y asegurate de que los test ahora empiezan a pasar y que no se ropen test anteriores.
@@ -129,9 +128,9 @@ un numero a una factura el disponible se incrementa en uno. Esto te permitira te
 una forma rapida.
 
 ## Generame unos comandos Curls para que yo pueda probar manualmente mi servidor.
-*No seria necesario porque los test ya están haciendo esa función.
+* No seria necesario porque los test ya están haciendo esa función.
 
-######################################
+## ####################################
 ## 1:32 Modifica el fichero server.ts, con relación al app.ts
 ## server.ts
 import { createApp } from './app'
@@ -141,10 +140,60 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () =>{
 	console.log(`Server is running on http:localhost:${PORT}`);
 });
-######################################
+## ####################################
 
 ## PROMT #############################################################
 Quiero realizar una nueva implementación de la capa de persistencia (Repositories). Ahora tengo la persistencia en memoria pero me gustaria tener los datos en una base de datos PostgreSQL.
 Primero, realiza el setup de las dependencias necesarias y luego hacemos la implementación especifica.
 
-*npm install pg @types/pg dotenv
+* npm install pg @types/pg dotenv
+* dotenv para manejar las variables de entorno
+
+* Hay que tener la definición de la tabla en postgres y la tabla creada.
+migraciones soluciona este problema.
+* Tendremos un listado de migraciones, con la diferentes modificiones que le 
+hemos ido haciendo a las tablas de postgres.
+
+## PROMT #############################################################
+Implementa el PostgreSQLFacturaRepository utilizando la interface correcta.
+
+* Conectarme a la bbdd quiero que sea dependiente del repositorio, para cuando implementemos nuevas conexiones no tengamos que modificar el startServer.
+
+## PROMT #############################################################
+Implementa la conexión como parte de la interface de los repositorios. La conexion en el InMemory siempre tendrá exito (no ha de hacer nada) pero la 
+conexion en el de PostgreSQL puede fallar.
+Conectarse es algo que tiene que hacer el repository cuando se inicie el servidor.
+
+# Docker 
+Instalar docker
+## PROMT #############################################################
+Generame un fichero de docker-compose para levantar un postgresql con las variables de entorno definidas definidas en .env.example para que pueda ejecutar
+mi servidor contra esa bbdd.
+
+* Con supabase tendriamos la base de datos en la nube.
+* docker-compose up -d 
+* docker ps -> Ves si se está ejecutando.
+* DBeaver -> para conectarnos a la base de datos local.
+* Hora la base de datos esta vacía porque no he lanzado ninguna migración.
+* npm run db:migrate
+
+* USE_POSTGRESQL=true npm run dev
+
+## PROMT #############################################################
+Generame un DockerFile para que yo puedo generar imagenes de mi servidor. La idea es que pueda desplegarlo allá donde Docker sea compatible.
+* DockerFile -> Es una receta de lo que tengo que hacer para generarme una imagen de docker.
+
+## PROMT #############################################################
+Use node 22
+
+## PROMT #############################################################
+No utilices nextjs, quedate con node en su formato más vanila. Es un servidor sencillo.
+
+## PROMT #############################################################
+No quiero healthcheck  -> Es un comando que utiliza Docker para saber que esta activo. 
+* Hora para construir la imagen tenemos que lanzar -> docker build -t invoices-api:1.0.0 .
+												   -> docker run -p 3000:3000 invoices-api:1.0.0
+Ahora tenemos lanzado nuestro servidor pero desde nuestra imagen de docker.
+
+# cloud.digitalocena -> Para publicar nuestra aplicación. Esta opción es de pago.
+* Hay que recordar que no podemos dejar los TOKEN HardCoded, debería de estar en una variable de entorno.
